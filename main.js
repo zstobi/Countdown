@@ -29,20 +29,14 @@ const minute = second * 60;
 const hour = minute * 60;
 const day = hour * 24;
 
-/*
-
-estas dos variables no sirven para este proyecto, pero si para el grande
-
 const month = day * 30;
 const year = (month * 12) + 5;
 
-*/
-
-// fecha de salida payday 3
+// fecha de fin de contador
 const fechaFutura = new Date(2023,8,21); //fechaFutura OG
-const fechaFuturaDrop = new Date(2023,8,20,23,59,51); //para la música
+//const fechaFuturaDrop = new Date(2023,8,20,23,59,51); //para la música
 
-// funcion que agrega un 0 en caso de tener un numero entre 0 y 10 sin incluir al 10
+// funcion que agrega un 0 delante de un número en caso de tener un número del contador entre 0 y 10, sin incluir al 10
 function adding0IfNecessary(section,time){
     if ( time < 10){
         section.textContent = '0' + time;
@@ -53,7 +47,6 @@ function adding0IfNecessary(section,time){
 
 let fechaActual = new Date(2023,8,20,23,59,40); //pack de testeo
 let norepeat = true;
-let imgEnd = document.querySelector('#imgEnd');
 
 // funcion que va a realizar la logica del paso del tiempo hacia la salida del payday 3
 function timeCalculate(){
@@ -125,21 +118,10 @@ function timeCalculate(){
     adding0IfNecessary(secs,remainingSeconds);
 
     // comparamos fecha actual con futura
-    // si faltan 5 segundos, actualiza la música justo antes del drop
-    if (fechaActual > fechaFuturaDrop && norepeat) {
-        norepeat = false
-        audio.currentTime = 612;
-    }
-
-    // comparamos fecha actual con futura
     // si son iguales, finaliza el countdown y se activa la animacion
     if (fechaActual > fechaFutura) { // > porque === no servía
         clearInterval(timerTest);
-
-        imgEnd.classList.remove('displayOffEnd');
-        imgEnd.classList.add('displayOnEnd');
-
-        confettiSplash();
+        // confettiSplash();
     };
 }
 
