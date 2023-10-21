@@ -1,0 +1,157 @@
+*, *::before, *::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+    /* color */
+    background-color: #121212;
+
+    /* design */
+    width: 100dvw;
+    height: 100dvh;
+    
+    /* structure */
+    display: flex;
+    flex-direction: column;
+    place-content: center; /* centra de arriba hacia abajo */
+    place-items: center;  /* centra de izquierda a derecha */
+}
+
+
+/* NAVIGATION -> Settings button */
+
+nav {
+    /* design */
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+
+    /* structure */
+    display: flex;
+    justify-content: flex-start;
+}
+
+.settings {
+    /* color */
+    background-color: inherit;
+
+    /* design */
+    padding: .2rem;
+    border: none;
+    border-radius: 8px;
+
+    /* animations */
+    transition: background-color .1s linear;
+}
+.settings:hover {
+    cursor: pointer;
+    
+    /* color */
+    background-color: #222222;
+}
+
+svg {
+    /* color */
+    color: #fff;
+
+    /* design */
+    height: 43px;
+    width: 43px;
+}
+
+/* MAIN -> Countdown Content */
+
+main {
+    /* color */
+    color: #fff;
+
+    /* design */
+    overflow: hidden;
+
+    /* fonts */
+    text-align: center;
+
+    /* structure */
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+
+h3 {
+    /* fonts */
+    font-size: 2.8rem;
+}
+
+#input-data {
+
+    /* structure */
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    gap: 6rem;
+}
+
+form {
+
+    /* structure */
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+}
+
+input {
+    /* color */
+    background-color: #222222;
+    color: #000;
+
+    /* design */
+    width: 150px;
+    height: 100px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    /* fonts */
+    text-align: center;
+    font-size: 1.4rem;
+
+    /* structure */
+    display: flex;
+
+    /* animations */
+    transition: outline .5s linear;
+}
+input:focus {
+    outline: 1px solid #fff;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
+
+#start {
+    cursor: pointer;
+
+    /* color */
+    /* background-color: #222222; */
+    background-color: rgba(127, 255, 212, 0.479);
+    color: #ffffff;
+
+    /* design */
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+
+    /* fonts */
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* countdown -> after */
+
+#countdown-activated {
+    display: none;
+}
