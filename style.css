@@ -32,7 +32,7 @@ nav {
 
     /* structure */
     display: flex;
-    justify-content: flex-start;
+    gap: 3rem;
 }
 
 .settings {
@@ -214,4 +214,121 @@ input::-webkit-inner-spin-button {
 
 #countdown-activated {
     display: none;
+}
+
+/* theme change */
+
+.switch-mode {
+    background-color: #1d1d1d;
+
+    height: 50px;
+    width: 100px;
+
+    border: 2px solid hsl(204, 86%, 53%);
+    border-radius: 50px;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    place-items: center;
+}
+.activator {
+    /* background-color: #316472; */
+    /* background-color: inherit; */
+    background-color: hsl(204, 86%, 53%);
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 100px;
+
+    grid-column: var(--pos, 1);
+
+    transition: all .3s ease-in;
+
+    display: grid;
+    place-items: center;
+}
+/* .activator:hover {
+    grid-column: 2;
+    transform: translateX(30px);
+} */
+
+.moon {
+
+    height: 30px;
+    width: 30px;
+
+    color: #000000;
+    display: block;
+    transition: all 3s;
+}
+.sun {
+    height: 30px;
+    width: 30px;
+
+    color: #ff0;
+    display: none;
+    transition: all 3s;
+}
+
+
+
+
+.switch-mode-two {
+    background-color: #1d1d1d;
+
+    height: 50px;
+    width: 100px;
+
+    /* border: 2px solid hsl(204, 86%, 53%); */
+    border-radius: 50px;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    place-items: center;
+}
+.activator-two {
+    /* background-color: #316472; */
+    /* background-color: inherit; */
+    background-color: hsl(204, 86%, 53%);
+    height: 50px;
+    width: 50px;
+    border: none;
+    /* border-radius: 100px; */
+    border-top-left-radius: var(--tl,20px);
+    border-bottom-left-radius: var(--bl,20px);
+    border-top-right-radius: var(--tr,none);
+    border-bottom-right-radius: var(--br,none);
+
+    grid-column: var(--pos, 1);
+
+    /* transform: translateX(); */
+
+    transition: border-top-left-radius .5s, border-bottom-left-radius .5s, border-top-right-radius .5s, border-bottom-right-radius .5s, all .8s;
+
+    display: grid;
+    place-items: center;
+}
+
+.moon-two {
+
+    height: 30px;
+    width: 30px;
+
+    color: #000000;
+    display: block;
+    transition: all 3s;
+}
+.sun-two {
+    height: 30px;
+    width: 30px;
+
+    color: #ff0;
+    display: none;
+    transition: all 3s;
 }

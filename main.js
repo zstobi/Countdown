@@ -6,35 +6,14 @@ const hours = document.querySelector('#hours');
 const mins = document.querySelector('#mins');
 const secs = document.querySelector('#secs');
 
-// coleccion - cantidad de dias en mes
-// meses del 0 al 11
-const meses = {
-    '0': 31,
-    '1': 28,
-    '2': 31,
-    '3': 30,
-    '4': 31,
-    '5': 30,
-    '6': 31,
-    '7': 31,
-    '8': 30,
-    '9': 31,
-    '10': 30,
-    '11': 31
-};
-
 // constantes de tiempo
 const second = 1000;
 const minute = second * 60;
 const hour = minute * 60;
 const day = hour * 24;
 
-const month = day * 30;
-const year = (month * 12) + 5;
-
 // fecha de fin de contador
-const fechaFutura = new Date(2023,8,21); //fechaFutura OG
-//const fechaFuturaDrop = new Date(2023,8,20,23,59,51); //para la música
+const fechaFutura = new Date(); // aca hay que agregarle los inputs del html
 
 // funcion que agrega un 0 delante de un número en caso de tener un número del contador entre 0 y 10, sin incluir al 10
 function adding0IfNecessary(section,time){
@@ -45,84 +24,53 @@ function adding0IfNecessary(section,time){
     }
 }
 
-let fechaActual = new Date(2023,8,20,23,59,40); //pack de testeo
-let norepeat = true;
+// para testeos
+let fechaActual = new Date(2023,8,20,23,59,40);
 
 // funcion que va a realizar la logica del paso del tiempo hacia la salida del payday 3
 function timeCalculate(){
 
-    // variable fecha actual
-    //let fechaActual = new Date();
+    let updateSecs = fechaActual.getSeconds();
+    fechaActual.setSeconds( (updateSecs + 1) );   
 
-    let testSecs = fechaActual.getSeconds()
-    console.log(testSecs +1 )
-    fechaActual.setSeconds( (testSecs + 1) );
-   
-
-    // distancia total entre la fecha de salida y la fecha actual, en milisegundos
-    let distanceToPayday3 = fechaFutura.getTime() - fechaActual.getTime();
+    // distancia total entre la fecha futura y la fecha actual, en milisegundos
+    let distanciaAFechaFutura = fechaFutura.getTime() - fechaActual.getTime();
 
     // distancia dias totales desde la fecha actual a la fecha de salida, en milisegundos
-    let totalDaysLeft = distanceToPayday3 / day;
+    let diasRestantes = distanciaAFechaFutura / day;
 
     // distancia horas totales desde la fecha actual a la fecha de salida, en milisegundos
-    let hoursLeft = (totalDaysLeft - Math.floor(totalDaysLeft)) * 24;
+    let horasRestantes = (diasRestantes - Math.floor(diasRestantes)) * 24;
 
     // distancia minutos totales desde la fecha actual a la fecha de salida, en milisegundos
-    let minutesLeft = (hoursLeft - Math.floor(hoursLeft)) * 60;
+    let minsRestantes = (horasRestantes - Math.floor(horasRestantes)) * 60;
 
     // distancia segundos totales desde la fecha actual a la fecha de salida, en milisegundos
-    let secondsLeft = (minutesLeft - Math.floor(minutesLeft)) * 60;
-
-    /*
-    
-    este while es para el proyecto grande: ( venir a buscar cuando arranquemos ese proyecto !!!)
-    
-    let mesFuturo = fechaFutura.getMonth();
-    let mesActual = fechaActual.getMonth() + 1;
-    let daysWithMonths = 0;
-    let monthCounter = 0;
-
-    while (mesActual != mesFuturo) {
-        if ( mesActual === 11){
-            mesActual = 0;
-        }
-        if (totalDaysLeft > daysWithMonths) {
-            daysWithMonths += meses[mesActual];        
-        }
-        mesActual++;
-        monthCounter++;
-    };
-
-    // estas constantes se usarian en caso de que hayan mas de 30 dias
-    // ejemplo, los dias restantes son 65 -> en el casillero de mes iria un 2 y en el casillero de dias iria un 5
-    const remainingMonths = Math.floor(monthCounter);
-    const remainingDays = (Math.floor(totalDaysLeft) - daysWithMonths); // Math.floor(totalDaysLeft);
-
-    */
+    let secsRestantes = (minsRestantes - Math.floor(minsRestantes)) * 60;
 
     // constantes para obtener el entero que va a ser ingresado en el casillero que le corresponda
     // dias restantes
-    let remainingDays = Math.floor(totalDaysLeft);
+    let diasRestantesAMostrar = Math.floor(diasRestantes);
     // horas restantes
-    let remainingHours = Math.floor(hoursLeft);
+    let horasRestantesAMostrar = Math.floor(horasRestantes);
     // minutos restantes
-    let remainingMinutes = Math.floor(minutesLeft);
+    let minsRestantesAMostrar = Math.floor(minsRestantes);
     // segundos restantes
-    let remainingSeconds = Math.floor(secondsLeft);
+    let secsRestantesAMostrar = Math.floor(secsRestantes);
 
     // ubicamos los enteros en el casillero correspondiente
-    adding0IfNecessary(days,remainingDays);
-    adding0IfNecessary(hours,remainingHours);
-    adding0IfNecessary(mins,remainingMinutes);
-    adding0IfNecessary(secs,remainingSeconds);
+    adding0IfNecessary(days,diasRestantesAMostrar);
+    adding0IfNecessary(hours,horasRestantesAMostrar);
+    adding0IfNecessary(mins,minsRestantesAMostrar);
+    adding0IfNecessary(secs,secsRestantesAMostrar);
 
     // comparamos fecha actual con futura
-    // si son iguales, finaliza el countdown y se activa la animacion
-    if (fechaActual > fechaFutura) { // > porque === no servía
+    // si son iguales, finaliza el countdown y se resetea
+    if (fechaActual > fechaFutura) { // > porque === no servía ***
         clearInterval(timerTest);
-        // confettiSplash();
     };
+
+    // *** Cuando se quiere hacer una comparación de fechas, en este caso la fecha traída puede llegar a tener miliseg de sobra, lo que hace que una comparativa "===" falle, porque si se saltea un segundo estero desde ahí (supongamos que la fecha actual fuese 11:59 con 5 miliseg y la futura 11:59) ya no sería IGUAL, sería MAYOR (quedaría 12:00 con 5 miliseg, contra 12:00)
 }
 
 // countdown generado
@@ -136,30 +84,97 @@ let timerTest = setInterval(timeCalculate,1000);
 
 // animación final
 
-// const jsConfetti = new JSConfetti();
+const jsConfetti = new JSConfetti();
 
-// function confettiSplash() {
+jsConfetti.addConfetti();
 
-//     let timer = setInterval (()=>{
+function confettiSplash() {
 
-//         jsConfetti.addConfetti({
-//             confettiNumber: 578,
-//             confettiColors: [
-//                 '#fff', '#c8bf57', '#50de82', '#28964f', '#2f6c45', '#2c814a',
-//               ],
-//         });
-//         jsConfetti.addConfetti({
-//             // emojis: ['🚨', '🚁', '🗽', '🔥', '📈', '🏧', '💵', '💸', '💰', '💲', '💷', '💣'],
-//             emojis: ['💸', '💰', '💲'],
-//             emojiSize: 45
-//          });
-//     },1000);
-    
-//     setTimeout(()=>{
+    jsConfetti.addConfetti({
+        confettiNumber: 578,
+        confettiColors: [
+            '#fff', '#c8bf57', '#50de82', '#28964f', '#2f6c45', '#2c814a',
+            ],
+    });
 
-//         clearInterval(timer);
+};
 
-//     },20000);
-    
+const splash = document.querySelector('#splash');
+splash.addEventListener('click',confettiSplash)
 
-// };
+
+
+
+
+
+
+
+
+
+
+// CHANGE THEME''
+
+// const activator = document.querySelector('.activator');
+// const activator2 = document.querySelector('.activator-two');
+// const moon = document.querySelector('.moon');
+// const sun = document.querySelector('.sun');
+// const moon2 = document.querySelector('.moon-two');
+// const sun2 = document.querySelector('.sun-two');
+
+// let starter = 0;
+// let starter2 = 0;
+
+// activator.addEventListener('click', ()=>{
+//     // activator.style.backgroundColor = '#000';
+//     // activator.style.setProperty('--pos','2');
+
+//     if ( starter === 0) {
+//         starter = 1;
+//         activator.style.backgroundColor = 'hsla(204, 86%, 53%, 0.534)';
+//         activator.style.transform = 'translateX(48px)';
+//         moon.style.display = 'none';
+//         sun.style.display = 'block';
+//     } else {
+//         starter = 0;
+//         activator.style.backgroundColor = 'hsl(204, 86%, 53%)';
+//         activator.style.transform = 'translateX(0px)';
+//         moon.style.display = 'block';
+//         sun.style.display = 'none';
+//     }
+// });
+
+// activator2.addEventListener('click', ()=>{
+//     // activator.style.backgroundColor = '#000';
+//     // activator.style.setProperty('--pos','2');
+
+//     if ( starter2 === 0) {
+//         starter2 = 1;
+//         activator2.style.backgroundColor = 'hsla(204, 86%, 53%, 0.534)';
+//         activator2.style.transform = 'translateX(50px)';
+
+//         // activator2.style.borderBottomLeftRadius = '20px';
+//         // activator2.style.borderBottomRightRadius = 'none';
+//         // activator2.style.borderTopLeftRadius = '20px';
+//         // activator2.style.borderTopRightRadius = 'none';
+
+//         activator2.style.setProperty('--br','20px');
+//         activator2.style.setProperty('--tr','20px');
+//         activator2.style.setProperty('--bl','none');
+//         activator2.style.setProperty('--tl','none');
+
+//         moon2.style.display = 'none';
+//         sun2.style.display = 'block';
+//     } else {
+//         starter2 = 0;
+//         activator2.style.backgroundColor = 'hsl(204, 86%, 53%)';
+//         activator2.style.transform = 'translateX(0px)';
+
+//         activator2.style.setProperty('--bl','20px');
+//         activator2.style.setProperty('--tl','20px');
+//         activator2.style.setProperty('--br','none');
+//         activator2.style.setProperty('--tr','none');
+
+//         moon2.style.display = 'block';
+//         sun2.style.display = 'none';
+//     }
+// });
