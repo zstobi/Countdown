@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>countdown</title>
-        <meta charset='UTF-8'>
-        <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <link rel='stylesheet' href='style.css'>
-        <link rel="icon" type="image/x-icon" href="reloj.png">
-    </head>
-    <body>
-
-        <!-- <nav>
+  <head>
+    <title>countdown</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="reloj.png" />
+  </head>
+  <body>
+    <!-- <nav>
 
             <button>Spanish</button>
 
@@ -55,37 +54,28 @@
 
         </nav> -->
 
-        <main>
+    <main>
+      <h3 REFL-TEXT="Countdown">Countdown</h3>
 
-            
-            <h3 REFL-TEXT="Countdown">Countdown</h3>
+      <section id="input-data">
+        <form name="countdownInputs">
+          <input id="days" type="number" />
+          <input id="hours" type="number" />
+          <input id="mins" type="number" />
+          <input id="secs" type="number" />
+        </form>
 
-            <section id="input-data">
+        <!-- <div class="right"> -->
+        <button id="start" type="submit" name="countdownInputs">START</button>
+        <!-- </div> -->
+      </section>
 
-                <form name="countdownInputs">
+      <section id="countdown-activated"></section>
+    </main>
 
-                    <input id="days" type="number">
-                    <input id="hours" type="number">
-                    <input id="mins" type="number">
-                    <input id="secs" type="number">
+    <button id="splash"></button>
 
-                </form>
-                
-                <!-- <div class="right"> -->
-                    <button id="start" type="submit" name="countdownInputs">
-                        START
-                    </button>
-                <!-- </div> -->
-
-            </section>
-
-            <section id="countdown-activated"></section>
-
-        </main>
-
-        <button id="splash"></button>
-
-        <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-        <script src='main.js'></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script type="module" src="main.js"></script>
+  </body>
 </html>
