@@ -90,69 +90,59 @@ import { confettiSplash } from './confetti.js'; // export nombrado
 const splash = document.querySelector('#splash');
 splash.addEventListener('click', confettiSplash);
 
-// CHANGE THEME''
+// CHANGE THEME
 
-// const activator = document.querySelector('.activator');
-// const activator2 = document.querySelector('.activator-two');
-// const moon = document.querySelector('.moon');
-// const sun = document.querySelector('.sun');
-// const moon2 = document.querySelector('.moon-two');
-// const sun2 = document.querySelector('.sun-two');
+const activator = document.querySelector('.activator');
+const moon = document.querySelector('.moon');
+const sun = document.querySelector('.sun');
 
-// let starter = 0;
-// let starter2 = 0;
+let starter = 0;
 
-// activator.addEventListener('click', ()=>{
-//     // activator.style.backgroundColor = '#000';
-//     // activator.style.setProperty('--pos','2');
+activator.addEventListener('click', ()=>{
 
-//     if ( starter === 0) {
-//         starter = 1;
-//         activator.style.backgroundColor = 'hsla(204, 86%, 53%, 0.534)';
-//         activator.style.transform = 'translateX(48px)';
-//         moon.style.display = 'none';
-//         sun.style.display = 'block';
-//     } else {
-//         starter = 0;
-//         activator.style.backgroundColor = 'hsl(204, 86%, 53%)';
-//         activator.style.transform = 'translateX(0px)';
-//         moon.style.display = 'block';
-//         sun.style.display = 'none';
-//     }
-// });
+    if ( starter === 0) {
+        starter = 1;
+        activator.style.backgroundColor = 'hsla(204, 86%, 53%, 0.534)';
+        activator.style.transform = 'translateX(48px)';
+        moon.style.display = 'none';
+        sun.style.display = 'block';
+    } else {
+        starter = 0;
+        activator.style.backgroundColor = 'hsl(204, 86%, 53%)';
+        activator.style.transform = 'translateX(0px)';
+        moon.style.display = 'block';
+        sun.style.display = 'none';
+    }
+});
 
-// activator2.addEventListener('click', ()=>{
-//     // activator.style.backgroundColor = '#000';
-//     // activator.style.setProperty('--pos','2');
+const changeTheme = document.querySelector('.change');
 
-//     if ( starter2 === 0) {
-//         starter2 = 1;
-//         activator2.style.backgroundColor = 'hsla(204, 86%, 53%, 0.534)';
-//         activator2.style.transform = 'translateX(50px)';
+function setBrightTheme(){
+  console.log("1")
+    document.body.style.setProperty('--bgc','#121212');
+    localStorage.setItem('fondo','dark');
+}
 
-//         // activator2.style.borderBottomLeftRadius = '20px';
-//         // activator2.style.borderBottomRightRadius = 'none';
-//         // activator2.style.borderTopLeftRadius = '20px';
-//         // activator2.style.borderTopRightRadius = 'none';
+function setDarkTheme(){
+  console.log("2")
+    document.body.style.setProperty('--bgc','#ccc');
+    localStorage.setItem('fondo','claro');
+}
 
-//         activator2.style.setProperty('--br','20px');
-//         activator2.style.setProperty('--tr','20px');
-//         activator2.style.setProperty('--bl','none');
-//         activator2.style.setProperty('--tl','none');
+if (localStorage.getItem('fondo') === 'claro'){
+    setDarkTheme();
+} else {
+    setBrightTheme();
+}
 
-//         moon2.style.display = 'none';
-//         sun2.style.display = 'block';
-//     } else {
-//         starter2 = 0;
-//         activator2.style.backgroundColor = 'hsl(204, 86%, 53%)';
-//         activator2.style.transform = 'translateX(0px)';
 
-//         activator2.style.setProperty('--bl','20px');
-//         activator2.style.setProperty('--tl','20px');
-//         activator2.style.setProperty('--br','none');
-//         activator2.style.setProperty('--tr','none');
+changeTheme.addEventListener('click',()=>{
+    let bgValue = localStorage.getItem('fondo');
+    
+    if (bgValue === 'claro'){
+        setBrightTheme();
+    } else {
+        setDarkTheme();
+    }
 
-//         moon2.style.display = 'block';
-//         sun2.style.display = 'none';
-//     }
-// });
+});

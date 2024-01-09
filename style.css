@@ -8,7 +8,7 @@
 
 body {
     /* color */
-    background-color: #121212;
+    background-color: var(--bgc,#121212);
 
     /* design */
     width: 100dvw;
