@@ -1,5 +1,8 @@
 // import confettiSplash from './confetti.js'; export default
 import { confettiSplash } from './confetti.js'; // export nombrado
+import {  } from './timeCalculate.js';
+
+const reset = document.querySelector('#reset');
 
 const splash = document.querySelector('#splash');
 splash.addEventListener('click', confettiSplash);
@@ -31,13 +34,13 @@ activator.addEventListener('click', () => {
 const changeTheme = document.querySelector('.change');
 
 function setBrightTheme() {
-  console.log('1');
+  // console.log('1');
   document.body.style.setProperty('--bgc', '#121212');
   localStorage.setItem('fondo', 'dark');
 }
 
 function setDarkTheme() {
-  console.log('2');
+  // console.log('2');
   document.body.style.setProperty('--bgc', '#ccc');
   localStorage.setItem('fondo', 'claro');
 }

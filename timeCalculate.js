@@ -6,13 +6,84 @@ export const hours = document.querySelector('#hours');
 export const mins = document.querySelector('#mins');
 export const secs = document.querySelector('#secs');
 
+const form = document.querySelector('#formCounter');
+const runningCounter = document.querySelector('#runningCounter');
+const counterInputs = document.querySelector('#counterInputs');
+
+const start = document.querySelector('#start');
+
+form.addEventListener('submit', (e)=>{
+  e.preventDefault();
+
+  let daysValue = Number(days.value);
+  let hoursValue = Number(hours.value);
+  let minsValue = Number(mins.value);
+  let secsValue = Number(secs.value);
+
+  runningCounter.classList.toggle('no-display');
+  counterInputs.classList.toggle('no-display');
+
+  addContent(daysValue,hoursValue,minsValue,secsValue);
+
+  // console.log(`${daysValue} + ${hoursValue} + ${minsValue} + ${secsValue}`);
+
+  setFutureDate(daysValue,hoursValue,minsValue,secsValue);
+
+});
+
+function test(a,b,c,d){
+  console.log(`${a} + ${b} + ${c} + ${d}`);
+}
+
+function addContent(divDay,divHour,divMin,divSec){
+
+  divDays.textContent = divDay;
+  divHours.textContent = divHour;
+  divMins.textContent = divMin;
+  divSecs.textContent = divSec;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // constantes de tiempo
 const second = 1000;
 const minute = second * 60;
 const hour = minute * 60;
 const day = hour * 24;
+
 // fecha de fin de contador
-const fechaFutura = new Date(); // aca hay que agregarle los inputs del html
+function setFutureDate(dv,hv,mv,sv){
+  const actualDate = new Date();
+  let currentYear = actualDate.getFullYear();
+  let currentMonth = actualDate.getMonth();
+  const futureDate = new Date(currentYear,currentMonth,dv,hv,mv,sv); // aca hay que agregarle los inputs del html
+  
+  console.log(futureDate.getTime());
+  // return fechaFutura;
+}
 
 // funcion que agrega un 0 delante de un número en caso de tener un número del contador entre 0 y 10, sin incluir al 10
 function adding0IfNecessary(section, time) {

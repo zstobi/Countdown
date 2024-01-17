@@ -6,6 +6,11 @@
 	box-sizing: border-box;
 }
 
+*::selection {
+    background-color: #baa1d1f3;
+    color: #222222;
+}
+
 body {
     /* color */
     background-color: var(--bgc,#121212);
@@ -121,8 +126,44 @@ form {
 
     /* structure */
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+}
+
+.numbersContent {
+    
+    /* structure */
+    display: flex;
     flex-direction: row;
     gap: 5rem;
+}
+
+.equalInput {
+    /* color */
+    background-color: #222222;
+    color: #bbbbbb;
+
+    /* design */
+    width: 100%;
+    padding: 2rem;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    /* fonts */
+    font-family: 'Oxanium', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    font-size: 2.3rem;
+    text-justify: center;
+
+    /* structure */
+    display: flex;
+    justify-content: space-around;
+
+    /* animations */
+    transition: outline .5s linear;
 }
 
 input[type="number"] {
@@ -158,24 +199,45 @@ input:focus {
     outline: 1px solid #bbbbbb;
 }
 
-*::selection {
-    background-color: #baa1d1f3;
-    color: #222222;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     display: none;
 }
 
-.right {
-
+.formBtns {
     /* design */
-    /* width: 100%; */
+    width: 100%;
 
     /* structure */
-    /* display: flex; */
-    /* justify-content: flex-end; */
+    display: flex;
+    justify-content: space-around;
+}
+
+#reset {
+    cursor: pointer;
+
+    /* color */
+    background-color: #f55454;
+    color: #222222;
+
+    /* design */
+    width: 100px;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+
+    /* fonts */
+    font-family: 'Oxanium', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+
+    /* structure */
+    display: flex;
+    place-content: center;
+    justify-content: center;
+
+    /* animations */
+    transition: box-shadow, color .700ms ease;
 }
 
 #start {
@@ -186,7 +248,7 @@ input::-webkit-inner-spin-button {
     color: #222222;
 
     /* design */
-    /* margin-right: 4rem; */
+    width: 100px;
     padding: 1rem;
     border: none;
     border-radius: 8px;
@@ -331,4 +393,14 @@ input::-webkit-inner-spin-button {
     color: #ff0;
     display: none;
     transition: all 3s;
+}
+
+.no-display {
+    display: none;
+}
+
+#runningCounter {
+    background-color: red;
+    height: 100px;
+    width: 1200px;
 }
