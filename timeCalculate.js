@@ -76,10 +76,16 @@ const day = hour * 24;
 
 // fecha de fin de contador
 function setFutureDate(dv,hv,mv,sv){
-  const actualDate = new Date();
-  let currentYear = actualDate.getFullYear();
-  let currentMonth = actualDate.getMonth();
-  const futureDate = new Date(currentYear,currentMonth,dv,hv,mv,sv); // aca hay que agregarle los inputs del html
+  // const actualDate = new Date();
+  // let currentYear = actualDate.getFullYear();
+  // let currentMonth = actualDate.getMonth();
+  // const futureDate = new Date(currentYear,currentMonth,dv,hv,mv,sv); 
+
+  const futureDate = new Date(); // aca hay que agregarle los inputs del html
+  futureDate.setDate(dv)
+  futureDate.setHours(hv)
+  futureDate.setMinutes(mv)
+  futureDate.setSeconds(sv)
   
   console.log(futureDate.getTime());
   // return fechaFutura;
