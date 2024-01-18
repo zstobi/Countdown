@@ -6,11 +6,11 @@ export const hours = document.querySelector('#hours');
 export const mins = document.querySelector('#mins');
 export const secs = document.querySelector('#secs');
 
-// const inputs = document.querySelectorAll('input');
-
-// inputs.addEventListener('change',()=>{
-//   inputs.value = '';
-// });
+// constantes del reloj
+export const divDays = document.querySelector('#divDays');
+export const divHours = document.querySelector('#divHours');
+export const divMins = document.querySelector('#divMins');
+export const divSecs = document.querySelector('#divSecs');
 
 const form = document.querySelector('#formCounter');
 const runningCounter = document.querySelector('#runningCounter');
@@ -21,30 +21,40 @@ const start = document.querySelector('#start');
 form.addEventListener('submit', (e)=>{
   e.preventDefault();
 
+
+
   let daysValue = Number(days.value);
   let hoursValue = Number(hours.value);
   let minsValue = Number(mins.value);
   let secsValue = Number(secs.value);
 
+  console.log(daysValue,hoursValue,minsValue,secsValue);
+
   runningCounter.classList.toggle('no-display');
   counterInputs.classList.toggle('no-display');
 
-  // addContent(daysValue,hoursValue,minsValue,secsValue);
+  addContent(daysValue,hoursValue,minsValue,secsValue);
   
-  adding0IfNecessary(days, daysValue);
-  adding0IfNecessary(hours, hoursValue);
-  adding0IfNecessary(mins, minsValue);
-  adding0IfNecessary(secs, secsValue);
+  // adding0IfNecessary(days, daysValue);
+  // adding0IfNecessary(hours, hoursValue);
+  // adding0IfNecessary(mins, minsValue);
+  // adding0IfNecessary(secs, secsValue);
 
 
   // console.log(`${daysValue} + ${hoursValue} + ${minsValue} + ${secsValue}`);
 
-  let futureDate = setFutureDate(daysValue,hoursValue,minsValue,secsValue);
 
+  
+  // let countdown = setInterval((timeCalculate(futureDate, actualDate)),1000);
   let actualDate = new Date();
 
-  // let countdown = setInterval((timeCalculate(futureDate, actualDate)),1000);
+  let milisegs = actualDate.getMilliseconds();
+  let futureDate = setFutureDate(daysValue,hoursValue,minsValue,secsValue,milisegs);
+
   let countdown = setInterval(()=>{
+
+    let actualDate = new Date();
+
     timeCalculate(futureDate, actualDate);
     if (actualDate > futureDate) {
       // > porque === no servía ***
@@ -68,30 +78,6 @@ function addContent(divDay,divHour,divMin,divSec){
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // constantes de tiempo
 const second = 1000;
 const minute = second * 60;
@@ -99,14 +85,21 @@ const hour = minute * 60;
 const day = hour * 24;
 
 // fecha de fin de contador
-function setFutureDate(dv,hv,mv,sv){
+function setFutureDate(dv,hv,mv,sv,milisegs){
 
   // aca hay que agregarle los inputs del html
   const futureDate = new Date();
-  futureDate.setDate(dv);
-  futureDate.setHours(hv);
-  futureDate.setMinutes(mv);
-  futureDate.setSeconds(sv);
+  
+  let futureSeconds = futureDate.getSeconds() + sv;
+  let futureMinutes = futureDate.getMinutes() + mv;
+  let futureHours = futureDate.getHours() + hv;
+  let futureDays = futureDate.getDate() + dv;
+
+  futureDate.setDate(futureDays);
+  futureDate.setHours(futureHours);
+  futureDate.setMinutes(futureMinutes);
+  futureDate.setSeconds(futureSeconds);
+  futureDate.setMilliseconds(milisegs);
   
   return futureDate;
 }
@@ -123,6 +116,7 @@ function adding0IfNecessary(section, time) {
 // funcion que va a realizar la logica del paso del tiempo hacia la futureDate 126489212764 / 24 = 3,5 
 export function timeCalculate(futureDate, actualDate) {
   
+  console.log({actualDate,futureDate})
 
   // subir un segundo a la fecha actual 
   let updateSecs = actualDate.getSeconds();
@@ -154,11 +148,13 @@ export function timeCalculate(futureDate, actualDate) {
   // segundos restantes
   let secsRestantesAMostrar = Math.floor(secsRestantes);
 
+  console.log(diasRestantesAMostrar,horasRestantesAMostrar,minsRestantesAMostrar,secsRestantesAMostrar)
+
   // ubicamos los enteros en el casillero correspondiente
-  adding0IfNecessary(days, diasRestantesAMostrar);
-  adding0IfNecessary(hours, horasRestantesAMostrar);
-  adding0IfNecessary(mins, minsRestantesAMostrar);
-  adding0IfNecessary(secs, secsRestantesAMostrar);
+  adding0IfNecessary(divDays, diasRestantesAMostrar);
+  adding0IfNecessary(divHours, horasRestantesAMostrar);
+  adding0IfNecessary(divMins, minsRestantesAMostrar);
+  adding0IfNecessary(divSecs, secsRestantesAMostrar);
 
   // comparamos fecha actual con futura
   // si son iguales, finaliza el countdown y se resetea
@@ -169,4 +165,3 @@ export function timeCalculate(futureDate, actualDate) {
 
   // *** Cuando se quiere hacer una comparación de fechas, en este caso la fecha traída puede llegar a tener miliseg de sobra, lo que hace que una comparativa "===" falle, porque si se saltea un segundo estero desde ahí (supongamos que la fecha actual fuese 11:59 con 5 miliseg y la futura 11:59) ya no sería IGUAL, sería MAYOR (quedaría 12:00 con 5 miliseg, contra 12:00)
 }
-
