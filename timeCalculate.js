@@ -6,6 +6,12 @@ export const hours = document.querySelector('#hours');
 export const mins = document.querySelector('#mins');
 export const secs = document.querySelector('#secs');
 
+// const inputs = document.querySelectorAll('input');
+
+// inputs.addEventListener('change',()=>{
+//   inputs.value = '';
+// });
+
 const form = document.querySelector('#formCounter');
 const runningCounter = document.querySelector('#runningCounter');
 const counterInputs = document.querySelector('#counterInputs');
@@ -23,11 +29,29 @@ form.addEventListener('submit', (e)=>{
   runningCounter.classList.toggle('no-display');
   counterInputs.classList.toggle('no-display');
 
-  addContent(daysValue,hoursValue,minsValue,secsValue);
+  // addContent(daysValue,hoursValue,minsValue,secsValue);
+  
+  adding0IfNecessary(days, daysValue);
+  adding0IfNecessary(hours, hoursValue);
+  adding0IfNecessary(mins, minsValue);
+  adding0IfNecessary(secs, secsValue);
+
 
   // console.log(`${daysValue} + ${hoursValue} + ${minsValue} + ${secsValue}`);
 
-  setFutureDate(daysValue,hoursValue,minsValue,secsValue);
+  let futureDate = setFutureDate(daysValue,hoursValue,minsValue,secsValue);
+
+  let actualDate = new Date();
+
+  // let countdown = setInterval((timeCalculate(futureDate, actualDate)),1000);
+  let countdown = setInterval(()=>{
+    timeCalculate(futureDate, actualDate);
+    if (actualDate > futureDate) {
+      // > porque === no servía ***
+      clearInterval(countdown);
+    }
+  },1000);
+
 
 });
 
@@ -76,19 +100,15 @@ const day = hour * 24;
 
 // fecha de fin de contador
 function setFutureDate(dv,hv,mv,sv){
-  // const actualDate = new Date();
-  // let currentYear = actualDate.getFullYear();
-  // let currentMonth = actualDate.getMonth();
-  // const futureDate = new Date(currentYear,currentMonth,dv,hv,mv,sv); 
 
-  const futureDate = new Date(); // aca hay que agregarle los inputs del html
-  futureDate.setDate(dv)
-  futureDate.setHours(hv)
-  futureDate.setMinutes(mv)
-  futureDate.setSeconds(sv)
+  // aca hay que agregarle los inputs del html
+  const futureDate = new Date();
+  futureDate.setDate(dv);
+  futureDate.setHours(hv);
+  futureDate.setMinutes(mv);
+  futureDate.setSeconds(sv);
   
-  console.log(futureDate.getTime());
-  // return fechaFutura;
+  return futureDate;
 }
 
 // funcion que agrega un 0 delante de un número en caso de tener un número del contador entre 0 y 10, sin incluir al 10
@@ -99,18 +119,21 @@ function adding0IfNecessary(section, time) {
     section.textContent = time;
   }
 }
-// para testeos
-let fechaActual = new Date(2023, 8, 20, 23, 59, 40);
-// funcion que va a realizar la logica del paso del tiempo hacia la salida del payday 3
-export function timeCalculate() {
-  let updateSecs = fechaActual.getSeconds();
-  fechaActual.setSeconds(updateSecs + 1);
+
+// funcion que va a realizar la logica del paso del tiempo hacia la futureDate 126489212764 / 24 = 3,5 
+export function timeCalculate(futureDate, actualDate) {
+  
+
+  // subir un segundo a la fecha actual 
+  let updateSecs = actualDate.getSeconds();
+  actualDate.setSeconds(updateSecs + 1);
 
   // distancia total entre la fecha futura y la fecha actual, en milisegundos
-  let distanciaAFechaFutura = fechaFutura.getTime() - fechaActual.getTime();
+  // console.log(futureDate)
+  let distanciaAfutureDate = futureDate.getTime() - actualDate.getTime();
 
   // distancia dias totales desde la fecha actual a la fecha de salida, en milisegundos
-  let diasRestantes = distanciaAFechaFutura / day;
+  let diasRestantes = distanciaAfutureDate / day;
 
   // distancia horas totales desde la fecha actual a la fecha de salida, en milisegundos
   let horasRestantes = (diasRestantes - Math.floor(diasRestantes)) * 24;
@@ -139,10 +162,11 @@ export function timeCalculate() {
 
   // comparamos fecha actual con futura
   // si son iguales, finaliza el countdown y se resetea
-  if (fechaActual > fechaFutura) {
-    // > porque === no servía ***
-    clearInterval(timerTest);
-  }
+  // if (actualDate > futureDate) {
+  //   // > porque === no servía ***
+  //   clearInterval(timerTest);
+  // }
 
   // *** Cuando se quiere hacer una comparación de fechas, en este caso la fecha traída puede llegar a tener miliseg de sobra, lo que hace que una comparativa "===" falle, porque si se saltea un segundo estero desde ahí (supongamos que la fecha actual fuese 11:59 con 5 miliseg y la futura 11:59) ya no sería IGUAL, sería MAYOR (quedaría 12:00 con 5 miliseg, contra 12:00)
 }
+
