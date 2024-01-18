@@ -28,7 +28,7 @@ form.addEventListener('submit', (e)=>{
   let minsValue = Number(mins.value);
   let secsValue = Number(secs.value);
 
-  console.log(daysValue,hoursValue,minsValue,secsValue);
+  // console.log(daysValue,hoursValue,minsValue,secsValue);
 
   runningCounter.classList.toggle('no-display');
   counterInputs.classList.toggle('no-display');
@@ -46,16 +46,17 @@ form.addEventListener('submit', (e)=>{
 
   
   // let countdown = setInterval((timeCalculate(futureDate, actualDate)),1000);
+ 
+  let futureDate = setFutureDate(daysValue,hoursValue,minsValue,secsValue);
+
   let actualDate = new Date();
 
-  let milisegs = actualDate.getMilliseconds();
-  let futureDate = setFutureDate(daysValue,hoursValue,minsValue,secsValue,milisegs);
+  actualDate.setMilliseconds(0)
 
   let countdown = setInterval(()=>{
 
-    let actualDate = new Date();
-
     timeCalculate(futureDate, actualDate);
+
     if (actualDate > futureDate) {
       // > porque === no servía ***
       clearInterval(countdown);
@@ -85,7 +86,7 @@ const hour = minute * 60;
 const day = hour * 24;
 
 // fecha de fin de contador
-function setFutureDate(dv,hv,mv,sv,milisegs){
+function setFutureDate(dv,hv,mv,sv){
 
   // aca hay que agregarle los inputs del html
   const futureDate = new Date();
@@ -99,7 +100,7 @@ function setFutureDate(dv,hv,mv,sv,milisegs){
   futureDate.setHours(futureHours);
   futureDate.setMinutes(futureMinutes);
   futureDate.setSeconds(futureSeconds);
-  futureDate.setMilliseconds(milisegs);
+  futureDate.setMilliseconds(0)
   
   return futureDate;
 }
@@ -115,14 +116,32 @@ function adding0IfNecessary(section, time) {
 
 // funcion que va a realizar la logica del paso del tiempo hacia la futureDate 126489212764 / 24 = 3,5 
 export function timeCalculate(futureDate, actualDate) {
-  
-  console.log({actualDate,futureDate})
 
   // subir un segundo a la fecha actual 
   let updateSecs = actualDate.getSeconds();
   actualDate.setSeconds(updateSecs + 1);
 
-  // distancia total entre la fecha futura y la fecha actual, en milisegundos
+  
+
+  // // distancia total entre la fecha futura y la fecha actual, en milisegundos
+  // // console.log(futureDate)
+  // let distanciaAfutureDate = futureDate.getTime() - actualDate.getTime();
+
+  // // distancia dias totales desde la fecha actual a la fecha de salida, en milisegundos
+  // let diasRestantes = distanciaAfutureDate / day;
+
+  // // distancia horas totales desde la fecha actual a la fecha de salida, en milisegundos
+  // let horasRestantes = (diasRestantes - parseInt(diasRestantes)) * 24;
+
+  // // distancia minutos totales desde la fecha actual a la fecha de salida, en milisegundos
+  // let minsRestantes = (horasRestantes - parseInt(horasRestantes)) * 60;
+
+  // // distancia segundos totales desde la fecha actual a la fecha de salida, en milisegundos
+  // let secsRestantes = (minsRestantes - parseInt(minsRestantes)) * 60;
+
+
+
+   // distancia total entre la fecha futura y la fecha actual, en milisegundos
   // console.log(futureDate)
   let distanciaAfutureDate = futureDate.getTime() - actualDate.getTime();
 
@@ -130,23 +149,31 @@ export function timeCalculate(futureDate, actualDate) {
   let diasRestantes = distanciaAfutureDate / day;
 
   // distancia horas totales desde la fecha actual a la fecha de salida, en milisegundos
-  let horasRestantes = (diasRestantes - Math.floor(diasRestantes)) * 24;
+  let horasRestantes = (diasRestantes - Math.round(diasRestantes)) * 24;
 
   // distancia minutos totales desde la fecha actual a la fecha de salida, en milisegundos
-  let minsRestantes = (horasRestantes - Math.floor(horasRestantes)) * 60;
+  let minsRestantes = (horasRestantes - Math.round(horasRestantes)) * 60;
 
   // distancia segundos totales desde la fecha actual a la fecha de salida, en milisegundos
-  let secsRestantes = (minsRestantes - Math.floor(minsRestantes)) * 60;
+  let secsRestantes = (minsRestantes - Math.round(minsRestantes)) * 60;
+
+
+  console.log("-----------ACTUAL-------------------------")
+  console.log(actualDate)
+  console.log("------------FUTURE------------------------")
+  console.log(futureDate)
+  console.log("-------------RAW RESULT-----------------------")
+  console.log(diasRestantes, horasRestantes, minsRestantes, secsRestantes)
 
   // constantes para obtener el entero que va a ser ingresado en el casillero que le corresponda
   // dias restantes
-  let diasRestantesAMostrar = Math.floor(diasRestantes);
+  let diasRestantesAMostrar = Math.round(diasRestantes);
   // horas restantes
-  let horasRestantesAMostrar = Math.floor(horasRestantes);
+  let horasRestantesAMostrar = Math.round(horasRestantes);
   // minutos restantes
-  let minsRestantesAMostrar = Math.floor(minsRestantes);
+  let minsRestantesAMostrar = Math.round(minsRestantes);
   // segundos restantes
-  let secsRestantesAMostrar = Math.floor(secsRestantes);
+  let secsRestantesAMostrar = Math.round(secsRestantes);
 
   console.log(diasRestantesAMostrar,horasRestantesAMostrar,minsRestantesAMostrar,secsRestantesAMostrar)
 
