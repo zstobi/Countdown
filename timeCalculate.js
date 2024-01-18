@@ -51,8 +51,6 @@ form.addEventListener('submit', (e)=>{
 
   let actualDate = new Date();
 
-  actualDate.setMilliseconds(0)
-
   let countdown = setInterval(()=>{
 
     timeCalculate(futureDate, actualDate);
@@ -100,7 +98,6 @@ function setFutureDate(dv,hv,mv,sv){
   futureDate.setHours(futureHours);
   futureDate.setMinutes(futureMinutes);
   futureDate.setSeconds(futureSeconds);
-  futureDate.setMilliseconds(0)
   
   return futureDate;
 }
@@ -149,13 +146,13 @@ export function timeCalculate(futureDate, actualDate) {
   let diasRestantes = distanciaAfutureDate / day;
 
   // distancia horas totales desde la fecha actual a la fecha de salida, en milisegundos
-  let horasRestantes = (diasRestantes - Math.round(diasRestantes)) * 24;
+  let horasRestantes = (diasRestantes - Math.floor(diasRestantes)) * 24;
 
   // distancia minutos totales desde la fecha actual a la fecha de salida, en milisegundos
-  let minsRestantes = (horasRestantes - Math.round(horasRestantes)) * 60;
+  let minsRestantes = (horasRestantes - Math.floor(horasRestantes)) * 60;
 
   // distancia segundos totales desde la fecha actual a la fecha de salida, en milisegundos
-  let secsRestantes = (minsRestantes - Math.round(minsRestantes)) * 60;
+  let secsRestantes = (minsRestantes - Math.floor(minsRestantes)) * 60;
 
 
   console.log("-----------ACTUAL-------------------------")
@@ -167,11 +164,11 @@ export function timeCalculate(futureDate, actualDate) {
 
   // constantes para obtener el entero que va a ser ingresado en el casillero que le corresponda
   // dias restantes
-  let diasRestantesAMostrar = Math.round(diasRestantes);
+  let diasRestantesAMostrar = Math.floor(diasRestantes);
   // horas restantes
-  let horasRestantesAMostrar = Math.round(horasRestantes);
+  let horasRestantesAMostrar = Math.floor(horasRestantes);
   // minutos restantes
-  let minsRestantesAMostrar = Math.round(minsRestantes);
+  let minsRestantesAMostrar = Math.floor(minsRestantes);
   // segundos restantes
   let secsRestantesAMostrar = Math.round(secsRestantes);
 
