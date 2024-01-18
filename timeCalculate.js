@@ -1,3 +1,4 @@
+import { confettiSplash } from './confetti.js'; // export nombrado
 // let timerTest = setInterval(timeCalculate, 1000);
 
 // constantes del reloj
@@ -55,9 +56,14 @@ form.addEventListener('submit', (e)=>{
 
     timeCalculate(futureDate, actualDate);
 
-    if (actualDate > futureDate) {
+    if (actualDate >= futureDate) {
       // > porque === no servía ***
       clearInterval(countdown);
+      for (let i = 0; i < 3; i++) {
+        confettiSplash()
+        confettiSplash()
+        // sleep 0.2 seg
+      }
     }
   },1000);
 
@@ -115,10 +121,13 @@ function adding0IfNecessary(section, time) {
 export function timeCalculate(futureDate, actualDate) {
 
   // subir un segundo a la fecha actual 
+
   let updateSecs = actualDate.getSeconds();
   actualDate.setSeconds(updateSecs + 1);
 
-  
+  if ( actualDate >= futureDate) {
+    futureDate = actualDate
+  }
 
   // // distancia total entre la fecha futura y la fecha actual, en milisegundos
   // // console.log(futureDate)
@@ -164,6 +173,7 @@ export function timeCalculate(futureDate, actualDate) {
 
   // constantes para obtener el entero que va a ser ingresado en el casillero que le corresponda
   // dias restantes
+
   let diasRestantesAMostrar = Math.floor(diasRestantes);
   // horas restantes
   let horasRestantesAMostrar = Math.floor(horasRestantes);
