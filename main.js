@@ -2,8 +2,6 @@
 import { confettiSplash } from './confetti.js'; // export nombrado
 import {  } from './timeCalculate.js';
 
-const reset = document.querySelector('#reset');
-
 const splash = document.querySelector('#splash');
 splash.addEventListener('click', confettiSplash);
 

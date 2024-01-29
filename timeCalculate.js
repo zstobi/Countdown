@@ -6,7 +6,9 @@ export const hours = document.querySelector('#hours');
 export const mins = document.querySelector('#mins');
 export const secs = document.querySelector('#secs');
 
-// constantes del reloj
+const sections = [days,hours,mins,secs];
+
+// constantes del reloj a mostrar
 export const countdownDays = document.querySelector('#divDays');
 export const countdownHours = document.querySelector('#divHours');
 export const countdownMins = document.querySelector('#divMins');
@@ -16,11 +18,73 @@ const form = document.querySelector('#formCounter'); // el formulario del countd
 const runningCounter = document.querySelector('#runningCounter');
 const counterInputs = document.querySelector('#counterInputs');
 
+
+// botones controladores
 const start = document.querySelector('#start');
+const reset = document.querySelector('#reset');
+
+function clearContent(input){
+  if (input.getAttribute.type = 'number'){
+    input.value = "";
+  }
+}
+
+function sectionClick(section){
+  if (section.value == 0 || section.value == "" || section.value == "00"){
+    clearContent(section);
+  }
+}
+
+function sectionLeave(section){
+  if (section.value == 0 || section.value == "" || section.value == "00"){
+    section.value = "00";
+  }
+}
+
+counterInputs.addEventListener('click',()=>{
+
+  sections.forEach((section)=>{
+
+    section.addEventListener('click', (section)=>{    
+      sectionClick(section);
+    });
+
+    section.addEventListener('mouseleave', (section)=>{
+      sectionLeave(section)
+    });
+
+  });
+
+});
+
+
+
+
+// sections.forEach((section)=>{
+//   console.log(section.outerHTML);
+
+//   section.addEventListener('click', (section)=>{    
+//     sectionClick(section);
+//   });
+
+//   section.addEventListener('mouseleave', (section)=>{
+//     sectionLeave(section)
+//   });
+
+// });
 
 form.addEventListener('submit', (e)=>{
   e.preventDefault(); // para evitar el reset de la página
 
+  if (days.value != 0 || hours.value != 0 || mins.value != 0 || secs.value != 0){
+    
+    countdownLogic();  
+
+  }
+
+});
+
+function countdownLogic() {
   let daysValue = Number(days.value);
   let hoursValue = Number(hours.value); //conseguimos los números de cada valor
   let minsValue = Number(mins.value);
@@ -29,25 +93,19 @@ form.addEventListener('submit', (e)=>{
   runningCounter.classList.toggle('no-display'); //el toggle entre los display de ambos contadores (el input y el running)
   counterInputs.classList.toggle('no-display');
 
-  addContent(daysValue,hoursValue,minsValue,secsValue);
-  
+  addContent(daysValue, hoursValue, minsValue, secsValue);
+
   // adding0IfNecessary(days, daysValue);
   // adding0IfNecessary(hours, hoursValue);
   // adding0IfNecessary(mins, minsValue);
   // adding0IfNecessary(secs, secsValue);
-
-
   // console.log(`${daysValue} + ${hoursValue} + ${minsValue} + ${secsValue}`);
-
-
-  
   // let countdown = setInterval((timeCalculate(futureDate, actualDate)),1000);
- 
-  let futureDate = setFutureDate(daysValue,hoursValue,minsValue,secsValue); //fecha a la que se llega
+  let futureDate = setFutureDate(daysValue, hoursValue, minsValue, secsValue); //fecha a la que se llega
 
   let actualDate = new Date(); //hoy, se usa para comparar con la futura y sacar el tiempo restante
 
-  let countdown = setInterval(()=>{
+  let countdown = setInterval(() => {
 
     timeCalculate(futureDate, actualDate); //magia
 
@@ -55,15 +113,25 @@ form.addEventListener('submit', (e)=>{
       // > porque === no servía ***
       clearInterval(countdown);
       for (let i = 0; i < 3; i++) { //repeat de 3
-        confettiSplash()
-        confettiSplash()
+        confettiSplash();
+        confettiSplash();
         // sleep 0.2 seg
       }
+
+      days.value = "00";
+      hours.value = "00";
+      mins.value = "00";
+      secs.value = "00";
+
+      runningCounter.classList.toggle('no-display'); //el toggle entre los display de ambos contadores (el input y el running)
+      counterInputs.classList.toggle('no-display');
+
+
     }
-  },1000);
+  }, 1000);
 
-
-});
+  
+}
 
 // function test(a,b,c,d){
 //   console.log(`${a} + ${b} + ${c} + ${d}`);
