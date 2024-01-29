@@ -1,5 +1,4 @@
 import { confettiSplash } from './confetti.js'; // export nombrado
-// let timerTest = setInterval(timeCalculate, 1000);
 
 // constantes del reloj
 export const days = document.querySelector('#days');
@@ -8,30 +7,26 @@ export const mins = document.querySelector('#mins');
 export const secs = document.querySelector('#secs');
 
 // constantes del reloj
-export const divDays = document.querySelector('#divDays');
-export const divHours = document.querySelector('#divHours');
-export const divMins = document.querySelector('#divMins');
-export const divSecs = document.querySelector('#divSecs');
+export const countdownDays = document.querySelector('#divDays');
+export const countdownHours = document.querySelector('#divHours');
+export const countdownMins = document.querySelector('#divMins');
+export const countdownSecs = document.querySelector('#divSecs');
 
-const form = document.querySelector('#formCounter');
+const form = document.querySelector('#formCounter'); // el formulario del countdown
 const runningCounter = document.querySelector('#runningCounter');
 const counterInputs = document.querySelector('#counterInputs');
 
 const start = document.querySelector('#start');
 
 form.addEventListener('submit', (e)=>{
-  e.preventDefault();
-
-
+  e.preventDefault(); // para evitar el reset de la página
 
   let daysValue = Number(days.value);
-  let hoursValue = Number(hours.value);
+  let hoursValue = Number(hours.value); //conseguimos los números de cada valor
   let minsValue = Number(mins.value);
   let secsValue = Number(secs.value);
 
-  // console.log(daysValue,hoursValue,minsValue,secsValue);
-
-  runningCounter.classList.toggle('no-display');
+  runningCounter.classList.toggle('no-display'); //el toggle entre los display de ambos contadores (el input y el running)
   counterInputs.classList.toggle('no-display');
 
   addContent(daysValue,hoursValue,minsValue,secsValue);
@@ -48,18 +43,18 @@ form.addEventListener('submit', (e)=>{
   
   // let countdown = setInterval((timeCalculate(futureDate, actualDate)),1000);
  
-  let futureDate = setFutureDate(daysValue,hoursValue,minsValue,secsValue);
+  let futureDate = setFutureDate(daysValue,hoursValue,minsValue,secsValue); //fecha a la que se llega
 
-  let actualDate = new Date();
+  let actualDate = new Date(); //hoy, se usa para comparar con la futura y sacar el tiempo restante
 
   let countdown = setInterval(()=>{
 
-    timeCalculate(futureDate, actualDate);
+    timeCalculate(futureDate, actualDate); //magia
 
     if (actualDate >= futureDate) {
       // > porque === no servía ***
       clearInterval(countdown);
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 3; i++) { //repeat de 3
         confettiSplash()
         confettiSplash()
         // sleep 0.2 seg
@@ -70,16 +65,17 @@ form.addEventListener('submit', (e)=>{
 
 });
 
-function test(a,b,c,d){
-  console.log(`${a} + ${b} + ${c} + ${d}`);
-}
+// function test(a,b,c,d){
+//   console.log(`${a} + ${b} + ${c} + ${d}`);
+// }
 
-function addContent(divDay,divHour,divMin,divSec){
+function addContent(days,hours,mins,secs){
+    //cambia el contenido de texto en los divs del HTML
 
-  divDays.textContent = divDay;
-  divHours.textContent = divHour;
-  divMins.textContent = divMin;
-  divSecs.textContent = divSec;
+  countdownDays.textContent = days;
+  countdownHours.textContent = hours;
+  countdownMins.textContent = mins;
+  countdownSecs.textContent = secs;
 
 }
 
@@ -90,15 +86,16 @@ const hour = minute * 60;
 const day = hour * 24;
 
 // fecha de fin de contador
-function setFutureDate(dv,hv,mv,sv){
+function setFutureDate(days,hours,mins,secs){
+  //setear la fecha futura
 
   // aca hay que agregarle los inputs del html
   const futureDate = new Date();
   
-  let futureSeconds = futureDate.getSeconds() + sv;
-  let futureMinutes = futureDate.getMinutes() + mv;
-  let futureHours = futureDate.getHours() + hv;
-  let futureDays = futureDate.getDate() + dv;
+  let futureSeconds = futureDate.getSeconds() + secs;
+  let futureMinutes = futureDate.getMinutes() + mins; 
+  let futureHours = futureDate.getHours() + hours;
+  let futureDays = futureDate.getDate() + days;
 
   futureDate.setDate(futureDays);
   futureDate.setHours(futureHours);
@@ -117,7 +114,7 @@ function adding0IfNecessary(section, time) {
   }
 }
 
-// funcion que va a realizar la logica del paso del tiempo hacia la futureDate 126489212764 / 24 = 3,5 
+// funcion que va a realizar la logica del paso del tiempo hacia la futureDate
 export function timeCalculate(futureDate, actualDate) {
 
   // subir un segundo a la fecha actual 
@@ -146,8 +143,7 @@ export function timeCalculate(futureDate, actualDate) {
   // let secsRestantes = (minsRestantes - parseInt(minsRestantes)) * 60;
 
 
-
-   // distancia total entre la fecha futura y la fecha actual, en milisegundos
+  // distancia total entre la fecha futura y la fecha actual, en milisegundos
   // console.log(futureDate)
   let distanciaAfutureDate = futureDate.getTime() - actualDate.getTime();
 
@@ -164,12 +160,12 @@ export function timeCalculate(futureDate, actualDate) {
   let secsRestantes = (minsRestantes - Math.floor(minsRestantes)) * 60;
 
 
-  console.log("-----------ACTUAL-------------------------")
-  console.log(actualDate)
-  console.log("------------FUTURE------------------------")
-  console.log(futureDate)
-  console.log("-------------RAW RESULT-----------------------")
-  console.log(diasRestantes, horasRestantes, minsRestantes, secsRestantes)
+  // console.log("-----------ACTUAL-------------------------")
+  // console.log(actualDate)
+  // console.log("------------FUTURE------------------------")
+  // console.log(futureDate)
+  // console.log("-------------RAW RESULT-----------------------")
+  // console.log(diasRestantes, horasRestantes, minsRestantes, secsRestantes)
 
   // constantes para obtener el entero que va a ser ingresado en el casillero que le corresponda
   // dias restantes
@@ -180,15 +176,15 @@ export function timeCalculate(futureDate, actualDate) {
   // minutos restantes
   let minsRestantesAMostrar = Math.floor(minsRestantes);
   // segundos restantes
-  let secsRestantesAMostrar = Math.round(secsRestantes);
+  let secsRestantesAMostrar = Math.round(secsRestantes); //round para evitar que se repitan números y se salteen
 
   console.log(diasRestantesAMostrar,horasRestantesAMostrar,minsRestantesAMostrar,secsRestantesAMostrar)
 
-  // ubicamos los enteros en el casillero correspondiente
-  adding0IfNecessary(divDays, diasRestantesAMostrar);
-  adding0IfNecessary(divHours, horasRestantesAMostrar);
-  adding0IfNecessary(divMins, minsRestantesAMostrar);
-  adding0IfNecessary(divSecs, secsRestantesAMostrar);
+  // ubicamos los enteros en el casillero correspondiente, con 0 atrás (si no es > 10)
+  adding0IfNecessary(countdownDays, diasRestantesAMostrar);
+  adding0IfNecessary(countdownHours, horasRestantesAMostrar);
+  adding0IfNecessary(countdownMins, minsRestantesAMostrar);
+  adding0IfNecessary(countdownSecs, secsRestantesAMostrar);
 
   // comparamos fecha actual con futura
   // si son iguales, finaliza el countdown y se resetea
