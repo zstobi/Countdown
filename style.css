@@ -398,7 +398,7 @@ input::-webkit-inner-spin-button {
 }
 
 .no-display {
-  display: none!important;
+  display: none !important;
 }
 
 /* #runningCounter {
@@ -406,3 +406,7 @@ input::-webkit-inner-spin-button {
   height: 100px;
   width: 1200px;
 } */
+
+#start:disabled {
+  background-color: gray;
+}
