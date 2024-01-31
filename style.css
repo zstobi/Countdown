@@ -302,7 +302,7 @@ input::-webkit-inner-spin-button {
   grid-template-columns: repeat(2, 1fr);
   place-items: center;
 }
-.activator {
+.themeActivator {
   /* background-color: #316472; */
   /* background-color: inherit; */
   background-color: hsl(204, 86%, 53%);

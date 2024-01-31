@@ -6,7 +6,7 @@ export const hours = document.querySelector('#hours')
 export const mins = document.querySelector('#mins')
 export const secs = document.querySelector('#secs')
 
-const sections = [days, hours, mins, secs]
+const sections = [days, hours, mins, secs] //lista de todas las secciones del countdown
 
 // constantes del reloj a mostrar
 export const countdownDays = document.querySelector('#divDays')
@@ -179,24 +179,7 @@ export function timeCalculate(futureDate, actualDate) {
     futureDate = actualDate
   }
 
-  // // distancia total entre la fecha futura y la fecha actual, en milisegundos
-  // // console.log(futureDate)
-  // let distanciaAfutureDate = futureDate.getTime() - actualDate.getTime();
-
-  // // distancia dias totales desde la fecha actual a la fecha de salida, en milisegundos
-  // let diasRestantes = distanciaAfutureDate / day;
-
-  // // distancia horas totales desde la fecha actual a la fecha de salida, en milisegundos
-  // let horasRestantes = (diasRestantes - parseInt(diasRestantes)) * 24;
-
-  // // distancia minutos totales desde la fecha actual a la fecha de salida, en milisegundos
-  // let minsRestantes = (horasRestantes - parseInt(horasRestantes)) * 60;
-
-  // // distancia segundos totales desde la fecha actual a la fecha de salida, en milisegundos
-  // let secsRestantes = (minsRestantes - parseInt(minsRestantes)) * 60;
-
   // distancia total entre la fecha futura y la fecha actual, en milisegundos
-  // console.log(futureDate)
   let distanciaAfutureDate = futureDate.getTime() - actualDate.getTime()
 
   // distancia dias totales desde la fecha actual a la fecha de salida, en milisegundos
@@ -219,8 +202,8 @@ export function timeCalculate(futureDate, actualDate) {
   // console.log(diasRestantes, horasRestantes, minsRestantes, secsRestantes)
 
   // constantes para obtener el entero que va a ser ingresado en el casillero que le corresponda
-  // dias restantes
 
+  // dias restantes
   let diasRestantesAMostrar = Math.floor(diasRestantes)
   // horas restantes
   let horasRestantesAMostrar = Math.floor(horasRestantes)
@@ -229,12 +212,12 @@ export function timeCalculate(futureDate, actualDate) {
   // segundos restantes
   let secsRestantesAMostrar = Math.round(secsRestantes) //round para evitar que se repitan números y se salteen
 
-  console.log(
-    diasRestantesAMostrar,
-    horasRestantesAMostrar,
-    minsRestantesAMostrar,
-    secsRestantesAMostrar
-  )
+  // console.log(
+  //   diasRestantesAMostrar,
+  //   horasRestantesAMostrar,
+  //   minsRestantesAMostrar,
+  //   secsRestantesAMostrar
+  // )
 
   // ubicamos los enteros en el casillero correspondiente, con 0 atrás (si no es > 10)
   adding0IfNecessary(countdownDays, diasRestantesAMostrar)
