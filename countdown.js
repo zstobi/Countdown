@@ -22,24 +22,28 @@ const counterInputs = document.querySelector('#counterInputs')
 const start = document.querySelector('#start')
 const reset = document.querySelector('#reset')
 
-function clearNumberContent(input) { //quita el número en el input del contador (se usa cuando se clickea encima de un número)
+function clearNumberContent(input) {
+  //quita el número en el input del contador (se usa cuando se clickea encima de un número)
   if ((input.getAttribute.type = 'number')) {
     input.value = ''
   }
 }
 
-function isEmptyNumericInputSection(section) { //si el input tiene alguno de estos valores, se lo considera neutro (vacío)
+function isEmptyNumericInputSection(section) {
+  //si el input tiene alguno de estos valores, se lo considera neutro (vacío)
   return section.value == 0 || section.value == '' || section.value == '00'
 }
 
 function removeSectionNumberContentOnClick(section) {
-  if (isEmptyNumericInputSection(section)) { //quita el número 00 cuando se clickea al input
+  if (isEmptyNumericInputSection(section)) {
+    //quita el número 00 cuando se clickea al input
     clearNumberContent(section)
   }
 }
 
 function reestablishDefaultNumericValueOnLeave(section) {
-  if (isEmptyNumericInputSection(section)) { //devuelve el 00 en caso que no se haya escrito nada (0, "" o 00)
+  if (isEmptyNumericInputSection(section)) {
+    //devuelve el 00 en caso que no se haya escrito nada (0, "" o 00)
     section.value = '00'
   }
 }
@@ -54,7 +58,7 @@ counterInputs.addEventListener('click', (evt) => {
 counterInputs.addEventListener('mouseout', (evt) => {
   // if (evt.target === counterInputs) return
 
-  const input = evt.target //donde se clickeó 
+  const input = evt.target //donde se clickeó
   reestablishDefaultNumericValueOnLeave(input)
 })
 
@@ -88,12 +92,18 @@ function replaceTimeInputsTextContent(days, hours, mins, secs) {
 }
 
 function fireworksBox() {
-  for (let i = 0; i < 3; i++) {
-    //repeat de 3
-    confettiSplash()
-    confettiSplash()
-    // sleep 0.2 seg
+  let contador = 0
+
+  function lanzarConfetti() {
+    if (contador < 3) {
+      confettiSplash()
+      contador++
+    } else {
+      clearInterval(intervalID)
+    }
   }
+
+  let intervalID = setInterval(lanzarConfetti, 800)
 }
 
 function resetTimeInputsTextContent() {
@@ -105,13 +115,11 @@ function resetTimeInputsTextContent() {
 }
 
 function switchCountdownWithInputCountdown() {
-runningCounter.classList.toggle('no-display') //el toggle entre los display de ambos contadores (el input y el running)
-counterInputs.classList.toggle('no-display')
+  runningCounter.classList.toggle('no-display') //el toggle entre los display de ambos contadores (el input y el running)
+  counterInputs.classList.toggle('no-display')
 }
 
 function countdownFinish(futureDate, actualDate, countdown) {
-  
-
   if (actualDate >= futureDate) {
     // > porque === no servía ***
     clearInterval(countdown)

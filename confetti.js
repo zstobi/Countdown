@@ -1,12 +1,13 @@
-const jsConfetti = new JSConfetti();
+const jsConfetti = new JSConfetti()
 
-const CONFETTI_CONFIG = { //config del confetti
-  confettiNumber: 578,
-  confettiColors: ['#fff', '#c8bf57', '#50de82', '#28964f', '#2f6c45', '#2c814a'],
-};
+const CONFETTI_CONFIG = {
+  //config del confetti
+  confettiNumber: 1000,
+  confettiColors: ['#b08ad1', '#f1e1ff', '#cb90fe'],
+}
 
 function confettiSplash() {
-  jsConfetti.addConfetti(CONFETTI_CONFIG);
+  jsConfetti.addConfetti(CONFETTI_CONFIG)
 }
 
 // export default confettiSplash; --> este se puede modificar el nombre al importarlo
@@ -18,4 +19,4 @@ function confettiSplash() {
 //   confettiSplash,
 // };
 
-export { confettiSplash };
+export { confettiSplash }
