@@ -4,6 +4,7 @@ import { confettiSplash } from './confetti.js'
 
 const counterInputs = document.querySelector('#counterInputs')
 const form = document.querySelector('#formCounter')
+
 const inputs = counterInputs.children // HTMLCollection
 const inputsArray = Array.from(inputs) // [input#days, input#hours, input#mins, input#secs]
 
@@ -18,6 +19,8 @@ function handleClick(evt) {
   })
 }
 
+counterInputs.addEventListener('click', handleClick)
+
 // --- --- ---
 
 function handleMouseOut(evt) {
@@ -29,6 +32,8 @@ function handleMouseOut(evt) {
   })
 }
 
+counterInputs.addEventListener('mouseout', handleMouseOut)
+
 // --- --- ---
 
 function handleSubmit(evt) {
@@ -36,10 +41,10 @@ function handleSubmit(evt) {
 
   form.start.disabled = true
 
-  const { days, hours, mins, secs } = inputs
-
-  countdownLogic({ days, hours, mins, secs })
+  countdownStart()
 }
+
+form.addEventListener('submit', handleSubmit)
 
 // --- --- ---
 
@@ -48,21 +53,16 @@ function handleClickReset() {
   form.start.disabled = false
 }
 
-// --------------------------------------------------
-
-counterInputs.addEventListener('click', handleClick)
-counterInputs.addEventListener('mouseout', handleMouseOut)
-form.addEventListener('submit', handleSubmit)
 form.reset.addEventListener('click', handleClickReset)
-
-// --------------------------------------------------
 
 let intervalID
 
-function countdownLogic({ days, hours, mins, secs }) {
+function countdownStart() {
+  const { days, hours, mins, secs } = inputs
+
   intervalID = setInterval(() => {
-    if (secs.value === '0' && mins.value === '0' && hours.value === '0' && days.value === '0') {
-      counterEnd()
+    if (inputsArray.every((input) => input.value === '0' || !input.value)) {
+      countdownEnd()
       return
     }
 
@@ -84,8 +84,9 @@ function countdownLogic({ days, hours, mins, secs }) {
   }, 1000)
 }
 
-function counterEnd() {
+function countdownEnd() {
   clearInterval(intervalID)
   form.start.disabled = false
   confettiSplash()
 }
+
