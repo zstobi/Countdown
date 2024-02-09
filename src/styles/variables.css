@@ -1,5 +1,5 @@
 :root {
-  --transition-duration: 300ms;
+  --transition-duration: 2s;
 
   --start-button-bg-color: #b08ad1;
   --reset-button-bg-color: #f55454;
@@ -10,7 +10,7 @@
   --transition-transform: transform var(--transition-duration) ease;
 }
 
-:root[data-theme='light'] {
+html[data-theme='light'] {
   --color: #121212;
   --bg-color: #f0f0f0;
 
@@ -20,7 +20,7 @@
   --outline-color: #000;
 }
 
-html[data-theme='dark']:root {
+html[data-theme='dark'] {
   --color: #fff;
   --bg-color: #121212;
 
@@ -28,4 +28,16 @@ html[data-theme='dark']:root {
   --input-bg-color: #aaa;
 
   --outline-color: #fff;
+}
+
+/* @media screen and (1000px <= width) {
+  html[data-theme='dark'] {
+    --bg-color: red;
+  }
+} */
+
+@media (prefers-reduced-motion) {
+  :root {
+    --transition-duration: 0 !important;
+  }
 }

@@ -3,6 +3,8 @@ import { getRandomColor } from '../utils/getRandomColor.js'
 const spans = document.querySelectorAll('.title span') // NodeList
 const html = document.querySelector('html')
 
+// ----------------
+
 // Función para cambiar el color de los spans según el tema
 function changeSpanColor(theme) {
   const color = theme === 'dark' ? '#ffffff' : '#121212'
@@ -24,6 +26,8 @@ const observer = new MutationObserver(mutationCallback)
 // Configurar y observar los cambios en el elemento HTML
 const config = { attributes: true }
 observer.observe(html, config)
+
+// ----------------
 
 // Escuchar eventos mouseover y mouseleave para cambiar color de los spans
 spans.forEach((span) => {
