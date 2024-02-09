@@ -97,7 +97,7 @@ form.addEventListener('submit', (e) => {
   e.preventDefault() // para evitar el reset de la página
 
   if (days.value != 0 || hours.value != 0 || mins.value != 0 || secs.value != 0) {
-    countdownLogic()
+    countdownStart()
   }
 })
 
@@ -125,12 +125,13 @@ function fireworksBox() {
   let intervalID = setInterval(lanzarConfetti, 800)
 }
 
-function resetTimeInputsTextContent() {
+// rest parameters
+
+function resetTo00TextContent(...elements) {
   //deja todos los valores en 0, para dar a entender que se terminó el contador (y que no quede negativo)
-  days.value = '00'
-  hours.value = '00'
-  mins.value = '00'
-  secs.value = '00'
+  elements.forEach((element) => {
+    element.value = '00'
+  })
 }
 
 function switchCountdownWithInputCountdown() {
@@ -145,13 +146,27 @@ function countdownFinish(futureDate, actualDate, countdown) {
 
     fireworksBox()
 
-    resetTimeInputsTextContent()
+    resetTo00TextContent(days, hours, mins, secs)
 
     switchCountdownWithInputCountdown()
+
+    start.disabled = false //rehabilitamos el start para que vuelva a poder poner inputs el usuario
   }
 }
 
-function countdownLogic() {
+function handleReset(countdownIntervalID) {
+  reset.addEventListener('click', () => {
+    //reinicia el contador ya empezado
+    clearInterval(countdownIntervalID)
+    resetTo00TextContent(countdownDays, countdownHours, countdownMins, countdownSecs)
+    switchCountdownWithInputCountdown()
+    start.disabled = false //rehabilitamos el start para que vuelva a poder poner inputs el usuario
+  })
+}
+
+function countdownStart() {
+  start.disabled = true //deshabilitar el start del countdown mientras funcione el contador
+
   let daysValue = Number(days.value)
   let hoursValue = Number(hours.value) //conseguimos los números de cada valor
   let minsValue = Number(mins.value)
@@ -166,10 +181,12 @@ function countdownLogic() {
 
   let actualDate = new Date() //hoy, se usa para comparar con la futura y sacar el tiempo restante
 
-  let countdown = setInterval(() => {
+  let countdownIntervalID = setInterval(() => {
     timeCalculate(futureDate, actualDate) //magia
-    countdownFinish(futureDate, actualDate, countdown)
+    countdownFinish(futureDate, actualDate, countdownIntervalID)
   }, 1000)
+
+  handleReset(countdownIntervalID)
 }
 
 // function test(a,b,c,d){

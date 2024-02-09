@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/x-icon" href="reloj.png" />
+    <link rel="icon" type="image/x-icon" href="public/favicon.avif" />
   </head>
   <body>
     <nav>
       <div class="switch-mode">
         <button class="themeActivator change">
           <!-- Modularizamos las imagenes svg a archivos aparte (dentro de assets) y los importamos con la etiqueta img -->
-          <img class="moon" src="assets/moon.svg" alt="Imagen de la luna" />
-          <img class="sun" src="assets/sun.svg" alt="Imagen del sol" />
+          <img class="moon" src="src/assets/moon.svg" alt="Imagen de la luna" />
+          <img class="sun" src="src/assets/sun.svg" alt="Imagen del sol" />
         </button>
       </div>
     </nav>
@@ -41,8 +41,8 @@
           <!-- Tener el input dentro del formulario te da una ventaja al hacer el evento onSubmit -->
 
           <div class="formBtns">
-            <button id="reset" type="reset">Reset</button>
-            <input id="start" type="submit" name="countdownInputs" value="Start" />
+            <input id="reset" type="reset" value="Reset" />
+            <input id="start" class="start" type="submit" name="countdownInputs" value="Start" />
           </div>
         </form>
       </section>
@@ -50,9 +50,7 @@
       <section id="countdown-activated"></section>
     </main>
 
-    <button id="splash"></button>
-
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <script type="module" src="main.js"></script>
+    <script type="module" src="src/javascript/main.js"></script>
   </body>
 </html>

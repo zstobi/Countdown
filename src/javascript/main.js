@@ -26,14 +26,14 @@ themeActivator.addEventListener('click', () => { //listener del switch de themes
 const changeTheme = document.querySelector('.change');
 
 function nightSwitch() { //cuando se usa se activa el modo nocturno en el switch (no el background ni el resto de elementos)
-  themeActivator.style.backgroundColor = 'hsl(204, 86%, 53%)';
+  // themeActivator.style.backgroundColor = 'hsl(204, 86%, 53%)';
   themeActivator.style.transform = 'translateX(0px)';
   moon.style.display = 'block';
-  sun.style.d2isplay = 'none';
+  sun.style.display = 'none';
 }
 
 function daySwitch() { //cuando se usa se activa el modo día en el switch (no el background ni el resto de elementos)
-  themeActivator.style.backgroundColor = 'hsla(204, 86%, 53%, 0.534)';
+  // themeActivator.style.backgroundColor = 'hsla(204, 86%, 53%, 0.534)';
   themeActivator.style.transform = 'translateX(48px)';
   moon.style.display = 'none';
   sun.style.display = 'block';
