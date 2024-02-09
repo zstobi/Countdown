@@ -1,0 +1,31 @@
+:root {
+  --transition-duration: 300ms;
+
+  --start-button-bg-color: #b08ad1;
+  --reset-button-bg-color: #f55454;
+
+  --transition-colors: background-color var(--transition-duration) ease,
+    color calc(var(--transition-duration) / 2) ease;
+
+  --transition-transform: transform var(--transition-duration) ease;
+}
+
+:root[data-theme='light'] {
+  --color: #121212;
+  --bg-color: #f0f0f0;
+
+  --main-bg-color: #aaa;
+  --input-bg-color: #f0f0f0;
+
+  --outline-color: #000;
+}
+
+html[data-theme='dark']:root {
+  --color: #fff;
+  --bg-color: #121212;
+
+  --main-bg-color: #202020;
+  --input-bg-color: #aaa;
+
+  --outline-color: #fff;
+}

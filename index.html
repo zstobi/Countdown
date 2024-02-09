@@ -1,58 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="light">
   <head>
-    <title>countdown</title>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/x-icon" href="reloj.png" />
+    <title>Countdown v2</title>
+    <link rel="stylesheet" href="src/index.css" />
+    <link rel="icon" type="image/x-icon" href="public/favicon.avif" />
   </head>
   <body>
     <nav>
-      <div class="switch-mode">
-        <button class="activator change">
-          <!-- Modularizamos las imagenes svg a archivos aparte (dentro de assets) y los importamos con la etiqueta img -->
-          <img class="moon" src="assets/moon.svg" alt="Imagen de la luna" />
-          <img class="sun" src="assets/sun.svg" alt="Imagen del sol" />
-        </button>
-      </div>
+      <button class="dark-mode-button" id="dark-mode-button">
+        <span class="sun"></span>
+        <span class="moon"></span>
+      </button>
     </nav>
 
     <main>
-      <h3 REFL-TEXT="Countdown">Countdown</h3>
+      <h3 class="title">
+        <span>C</span>
+        <span>o</span>
+        <span>u</span>
+        <span>t</span>
+        <span>d</span>
+        <span>o</span>
+        <span>w</span>
+        <span>n</span>
+      </h3>
 
-      <section id="input-data">
-        <form id="formCounter" name="countdownInputs">
-          <div id="counterInputs" class="numbersContent">
-            <input id="days" type="number" min="0" max="30" value="0" />
-            <input id="hours" type="number" min="0" max="23" value="0" />
-            <input id="mins" type="number" min="0" max="59" value="0" />
-            <input id="secs" type="number" min="0" max="59" value="0" />
-          </div>
+      <form id="form" class="form">
+        <section id="input-container" class="input-container">
+          <input id="days" type="number" min="0" max="30" value="0" />
+          <input id="hours" type="number" min="0" max="23" value="0" />
+          <input id="minutes" type="number" min="0" max="59" value="0" />
+          <input id="seconds" type="number" min="0" max="59" value="0" />
+        </section>
 
-          <div id="runningCounter" class="numbersContent no-display">
-            <div id="divDays" class="equalInput"></div>
-            <div id="divHours" class="equalInput"></div>
-            <div id="divMins" class="equalInput"></div>
-            <div id="divSecs" class="equalInput"></div>
-          </div>
-
-          <!-- Tener el input dentro del formulario te da una ventaja al hacer el evento onSubmit -->
-
-          <div class="formBtns">
-            <button id="reset" type="reset">Reset</button>
-            <input id="start" type="submit" name="countdownInputs" value="Start" />
-          </div>
-        </form>
-      </section>
-
-      <section id="countdown-activated"></section>
+        <section class="button-container">
+          <input id="reset" class="button reset-button" type="reset" value="Reset" />
+          <input id="start" class="button start-button" type="submit" value="Start" />
+        </section>
+      </form>
     </main>
 
-    <button id="splash"></button>
-
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <script type="module" src="main.js"></script>
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>

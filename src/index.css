@@ -1,0 +1,8 @@
+/* RESET */
+@import url('./styles/reset.css');
+
+/* VARIABLES */
+@import url('./styles/variables.css');
+
+/* STYLES */
+@import url('./styles/styles.css');
