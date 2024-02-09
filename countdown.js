@@ -3,7 +3,7 @@ import { confettiSplash } from './confetti.js' // export nombrado
 // constantes del reloj
 
 // export const days = document.querySelector('#days')
-// export const hours = document.querySelector('#hours') 
+// export const hours = document.querySelector('#hours')
 // export const mins = document.querySelector('#mins')
 // export const secs = document.querySelector('#secs')
 
