@@ -1,12 +1,31 @@
 import { confettiSplash } from './confetti.js' // export nombrado
 
 // constantes del reloj
-export const days = document.querySelector('#days')
-export const hours = document.querySelector('#hours')
-export const mins = document.querySelector('#mins')
-export const secs = document.querySelector('#secs')
 
-const sections = [days, hours, mins, secs] //lista de todas las secciones del countdown
+// export const days = document.querySelector('#days')
+// export const hours = document.querySelector('#hours') 
+// export const mins = document.querySelector('#mins')
+// export const secs = document.querySelector('#secs')
+
+// const counterInputs = document.querySelector('#counterInputs')
+// const form = document.querySelector('#formCounter')
+
+// const inputs = counterInputs.children // HTMLCollection
+// const inputsArray = Array.from(inputs) // [input#days, input#hours, input#mins, input#secs]
+
+const inputContainer = document.querySelector('#input-container') // HTMLElement (section)
+const { children: inputs } = inputContainer // HTMLCollection (cada uno de los inputs) !== Array
+// const sections = inputContainer.children
+
+const sections = Array.from(inputs) // [input#days, input#hours, input#mins, input#secs] lista de todas los elementos HTML (HTMLInputElement) del countdown
+
+const { days, hours, mins, secs } = inputs
+
+// console.log(inputs instanceof HTMLElement)
+
+//const sections = [days, hours, mins, secs] //lista de todas las secciones del countdown
+
+//al hacer "Array from, trae los inputs específicamente"
 
 // constantes del reloj a mostrar
 export const countdownDays = document.querySelector('#divDays')
@@ -16,7 +35,7 @@ export const countdownSecs = document.querySelector('#divSecs')
 
 const form = document.querySelector('#formCounter') // el formulario del countdown
 const runningCounter = document.querySelector('#runningCounter')
-const counterInputs = document.querySelector('#counterInputs')
+const counterInputs = document.querySelector('#input-container')
 
 // botones controladores
 const start = document.querySelector('#start')

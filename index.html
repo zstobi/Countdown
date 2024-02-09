@@ -24,31 +24,26 @@
 
       <section id="input-data">
         <form id="formCounter" name="countdownInputs">
-          <div id="counterInputs" class="numbersContent">
-
-            <input id="days" type="number" min="0" max="30" value="00"/>
-            <input id="hours" type="number" min="0" max="23" value="00"/>
-            <input id="mins" type="number" min="0" max="59" value="00"/>
-            <input id="secs" type="number" min="0" max="59" value="00"/>
-
-          </div>
+          <section id="input-container" class="numbersContent">
+            <input id="days" type="number" min="0" max="30" value="00" />
+            <input id="hours" type="number" min="0" max="23" value="00" />
+            <input id="mins" type="number" min="0" max="59" value="00" />
+            <input id="secs" type="number" min="0" max="59" value="00" />
+          </section>
 
           <div id="runningCounter" class="numbersContent no-display">
-
             <div id="divDays" class="equalInput"></div>
             <div id="divHours" class="equalInput"></div>
             <div id="divMins" class="equalInput"></div>
             <div id="divSecs" class="equalInput"></div>
-
           </div>
-          
+
           <!-- Tener el input dentro del formulario te da una ventaja al hacer el evento onSubmit -->
 
           <div class="formBtns">
             <button id="reset" type="reset">Reset</button>
-            <input id="start" type="submit" name="countdownInputs" value="Start">
+            <input id="start" type="submit" name="countdownInputs" value="Start" />
           </div>
-
         </form>
       </section>
 
